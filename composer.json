@@ -1,7 +1,7 @@
 {
     "name": "talesoft/tale-base",
     "description": "Micro Framework",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "license": "MIT",
     "authors": [
         {

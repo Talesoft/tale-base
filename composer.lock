@@ -4,11 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "798c53f25aec9c7fbd2e3422ac6b510b",
-    "packages": [],
+    "hash": "d212da6da6d924731f4e8fc72e9c4331",
+    "packages": [
+        {
+            "name": "talesoft/tale-framework",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Talesoft/tale-framework.git",
+                "reference": "dfbec837ea27c0b917ab1de91fc0335914e32146"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Talesoft/tale-framework/zipball/dfbec837ea27c0b917ab1de91fc0335914e32146",
+                "reference": "dfbec837ea27c0b917ab1de91fc0335914e32146",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Tale": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Torben Köhn",
+                    "email": "tk@talesoft.io"
+                },
+                {
+                    "name": "Cagatay Ulubay",
+                    "email": "cu@talesoft.io"
+                }
+            ],
+            "description": "The Tale Framework",
+            "time": "2015-09-08 17:09:13"
+        }
+    ],
     "packages-dev": [],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,

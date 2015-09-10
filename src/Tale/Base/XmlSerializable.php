@@ -1,6 +1,6 @@
 <?php
 
-namespace Tale\Base\Util;
+namespace Tale\Base;
 
 interface XmlSerializable
 {

@@ -2,7 +2,7 @@
 
 namespace Tale\Base;
 
-use Tale\Base\Util\StringUtil;
+use Tale\Util\StringUtil;
 
 class Controller
 {
@@ -42,11 +42,10 @@ class Controller
         unset($this->_data[$name]);
     }
 
-
-    public static function getClassName($controller)
+    public static function getClassName($controller, $nameSpace = null)
     {
 
-        return StringUtil::camelize($controller).'Controller';
+        return ($nameSpace ? "$nameSpace\\" : $nameSpace).StringUtil::camelize($controller).'Controller';
     }
 
     public static function getMethodName($action)
@@ -77,7 +76,7 @@ class Controller
     public static function dispatchError($action, array $request = null)
     {
 
-        return self::dispatch([
+        self::dispatch([
             'controller' => self::ERROR_CONTROLLER,
             'action' => $action,
             'request' => $request ? $request : []
@@ -90,8 +89,10 @@ class Controller
         $request = array_replace([
             'controller' => self::DEFAULT_CONTROLLER,
             'action' => self::DEFAULT_ACTION,
+            'id' => null,
             'args' => [],
-            'format' => self::DEFAULT_FORMAT
+            'format' => self::DEFAULT_FORMAT,
+            'nameSpace' => Config::get('app.nameSpace')
         ], $request ? $request : []);
 
         //Sanitize (e.g. you can pass [sS]ome[-_][cC]ontroller, we want some-controller)
@@ -99,7 +100,10 @@ class Controller
         $request['action'] = StringUtil::canonicalize($request['action']);
         $request['format'] = strtolower($request['format']);
 
-        $className = self::getClassName($request['controller']);
+        if ($request['id'])
+            array_unshift($request['args'], $request['id']);
+
+        $className = self::getClassName($request['controller'], $request['nameSpace']);
         $methodName = self::getMethodName($request['action']);
 
         try {
@@ -112,9 +116,13 @@ class Controller
 
         } catch(\Exception $e) {
 
-            return self::dispatchError('not-found', array_merge([
+            if ($request['controller'] === self::ERROR_CONTROLLER)
+                throw $e;
+
+            self::dispatchError('not-found', array_merge([
                 'exception' => $e
             ], $request));
+            return;
         }
 
         $controller = new $className($request);
@@ -190,7 +198,7 @@ class Controller
                             break;
                         case 'object':
 
-                            if ($value instanceof Util\XmlSerializable)
+                            if ($value instanceof XmlSerializable)
                                 $value = $value->xmlSerialize();
                             else
                                 $value = (array)$value;

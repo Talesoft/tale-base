@@ -211,7 +211,7 @@ class Validator
     public function notDateTime($message)
     {
 
-        $result = \DateTime::createFromFormat(\DateTime::DATE_ATOM, $this->_value);
+        $result = \DateTime::createFromFormat(\DateTime::ATOM, $this->_value);
         return $this->isnt($result ? true : false, $message);
     }
 

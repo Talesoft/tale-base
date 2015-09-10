@@ -1,35 +1,17 @@
 <?php
 
-namespace Tale\App;
+namespace Tale\Base;
 
 class Router
 {
 
-    private static $_routes = [];
-
-    public static function addRoute($route, $handler)
-    {
-
-        if (!is_callable($handler))
-            throw new \InvalidArgumentException(
-                "Argument 2 passed to Router->setRoute needs to be"
-                ."a valid PHP-style callback"
-            );
-
-        self::$_routes[$route] = $handler;
-    }
-
-    public static function addRoutes(array $routes)
-    {
-
-        foreach ($routes as $route => $handler)
-            self::addRoute($route, $handler);
-    }
-
     public static function route($string)
     {
 
-        foreach (self::$_routes as $route => $handler) {
+        $routes = Config::get('routes', []);
+        foreach ($routes as $route => $handler) {
+
+            var_dump("ROUTE $string => $route");
 
             if ($result = self::match($route, $string)) {
 
