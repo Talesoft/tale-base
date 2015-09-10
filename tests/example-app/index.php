@@ -2,4 +2,4 @@
 
 include '../../vendor/autoload.php';
 
-Tale\Base\App::run();
+Tale\Base\App::run(__DIR__);

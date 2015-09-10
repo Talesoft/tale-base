@@ -3,13 +3,23 @@
 use Tale\Base\Controller;
 
 return [
-    '/:controller?/:action?/:id?.:format?' => function($data) {
+     //These are mainly examples
+    '/blog/:controller?/:action?/:id?.:format?' => function($data) {
+
+        $data['module'] = 'blog';
 
         Controller::dispatch($data);
     },
 
-    //These are mainly examples
-    '/blog/:controller?/:action?/:id?.:format?' => function($data) {
+    '/acp/:controller?/:action?/:id?.:format?' => function($data) {
+
+        $data['module'] = 'acp';
+
+        Controller::dispatch($data);
+    },
+
+    //This is the main route
+    '/:controller?/:action?/:id?.:format?' => function($data) {
 
         Controller::dispatch($data);
     }

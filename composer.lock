@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d212da6da6d924731f4e8fc72e9c4331",
+    "hash": "ace9aa4c58ba4f8e38877462f27440e3",
     "packages": [
         {
             "name": "talesoft/tale-framework",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Talesoft/tale-framework.git",
-                "reference": "dfbec837ea27c0b917ab1de91fc0335914e32146"
+                "reference": "739a7011c6dad409a51c4bcfbcf4b4ffbc8cba49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Talesoft/tale-framework/zipball/dfbec837ea27c0b917ab1de91fc0335914e32146",
-                "reference": "dfbec837ea27c0b917ab1de91fc0335914e32146",
+                "url": "https://api.github.com/repos/Talesoft/tale-framework/zipball/739a7011c6dad409a51c4bcfbcf4b4ffbc8cba49",
+                "reference": "739a7011c6dad409a51c4bcfbcf4b4ffbc8cba49",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "The Tale Framework",
-            "time": "2015-09-08 17:09:13"
+            "time": "2015-09-10 17:01:05"
         }
     ],
     "packages-dev": [],

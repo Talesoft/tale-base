@@ -42,10 +42,16 @@ class Controller
         unset($this->_data[$name]);
     }
 
-    public static function getClassName($controller, $nameSpace = null)
+    public static function getClassName($controller, $module = null)
     {
 
-        return ($nameSpace ? "$nameSpace\\" : $nameSpace).StringUtil::camelize($controller).'Controller';
+        $ns = App::getControllerNameSpace();
+        if ($module) {
+
+            $ns .= '\\'.implode('\\', array_map('Tale\\Util\\StringUtil::camelize', explode('.', $module)));
+        }
+
+        return "$ns\\".StringUtil::camelize($controller).'Controller';
     }
 
     public static function getMethodName($action)
@@ -69,7 +75,7 @@ class Controller
 
         return array_filter(self::getPublicMethodNames(), function($methodName) {
 
-            return strncmp($methodName, 'init', 4) !== 0;
+            return strncmp($methodName, 'init', 4) === 0;
         });
     }
 
@@ -87,12 +93,12 @@ class Controller
     {
 
         $request = array_replace([
+            'module' => null,
             'controller' => self::DEFAULT_CONTROLLER,
             'action' => self::DEFAULT_ACTION,
             'id' => null,
             'args' => [],
-            'format' => self::DEFAULT_FORMAT,
-            'nameSpace' => Config::get('app.nameSpace')
+            'format' => self::DEFAULT_FORMAT
         ], $request ? $request : []);
 
         //Sanitize (e.g. you can pass [sS]ome[-_][cC]ontroller, we want some-controller)
@@ -103,9 +109,11 @@ class Controller
         if ($request['id'])
             array_unshift($request['args'], $request['id']);
 
-        $className = self::getClassName($request['controller'], $request['nameSpace']);
+        $className = self::getClassName($request['controller'], $request['module']);
         $methodName = self::getMethodName($request['action']);
 
+
+        var_dump("DISPATCH $className->$methodName", $request);
         try {
 
             if (!class_exists($className) || !is_subclass_of($className, __CLASS__))
@@ -152,6 +160,15 @@ class Controller
             case 'html':
 
                 header('Content-Type: text/html; encoding=utf-8');
+
+                $view = $controller->controller.'/'.$controller->action;
+
+                if (!empty($controller->module))
+                    $view = $controller->module.'/'.$view;
+
+
+                $path = $view.'.phtml';
+
 
                 break;
             case 'json':

@@ -39,7 +39,7 @@ class Server
         return self::get('SERVER_PORT');
     }
 
-    public static function getPath()
+    public static function getRequestPath()
     {
 
         $path = self::get('PATH_INFO');
@@ -51,6 +51,11 @@ class Server
             );
         }
 
+        if (($pos = strpos($path, '?')) !== false) {
+
+            $path = substr($path, 0, $pos);
+        }
+
         return $path;
     }
 
@@ -58,6 +63,7 @@ class Server
     {
 
         $proto = self::get('SERVER_PROTOCOL');
+
         return explode('/', $proto)[0];
     }
 
@@ -65,6 +71,7 @@ class Server
     {
 
         $proto = self::get('SERVER_PROTOCOL');
+
         return explode('/', $proto)[1];
     }
 
